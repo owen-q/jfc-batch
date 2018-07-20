@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.EntityManagerFactory;
-import java.time.DayOfWeek;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
@@ -45,20 +43,7 @@ public class StepConfiguration {
 
     @Bean
     public ItemReader<ZonedDateTime> sampleItemReader() {
-
-        ItemReader<ZonedDateTime> matchDateReader = ()->{
-            final String ZONE_ID = "Asia/Seoul";
-
-            ZonedDateTime today = ZonedDateTime.now(ZoneId.of(ZONE_ID));
-            ZonedDateTime matchDate = ZonedDateTime.now(ZoneId.of(ZONE_ID));
-
-            DayOfWeek todayDayOfWeek = today.getDayOfWeek();
-
-            matchDate = matchDate.plusDays(DayOfWeek.SUNDAY.minus(todayDayOfWeek.ordinal()).ordinal()).withHour(10);
-            return matchDate;
-        };
-
-        return matchDateReader;
+        return new DateItemReader();
     }
 
     @Bean
