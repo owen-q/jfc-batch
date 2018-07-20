@@ -30,6 +30,7 @@ public class JobConfiguration {
     public Job job() {
         return jobBuilderFactory.get(JOB_NAME)
                 .start(step)
-                .build();
+                .on("COMPLETED")
+                .end().build().build();
     }
 }
