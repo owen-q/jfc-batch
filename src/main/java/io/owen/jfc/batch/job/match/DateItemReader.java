@@ -34,6 +34,7 @@ public class DateItemReader implements ItemReader {
 
             matchDate = matchDate.plusDays(DayOfWeek.SUNDAY.minus(todayDayOfWeek.ordinal()).ordinal()).withHour(10);
 
+            count++;
             return matchDate;
         }
     }
