@@ -65,7 +65,6 @@ public class StepConfiguration {
     public ItemProcessor<ZonedDateTime, Match> sampleItemProcessor() {
         return (matchDate) ->{
 
-
             Match match = new Match();
             match.setAttendList(new ArrayList<>());
             match.setMatchDate(matchDate);
