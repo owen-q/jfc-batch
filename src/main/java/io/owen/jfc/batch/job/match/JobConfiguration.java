@@ -3,6 +3,7 @@ package io.owen.jfc.batch.job.match;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -30,6 +31,13 @@ public class JobConfiguration {
     public Job job() {
         return jobBuilderFactory.get(JOB_NAME)
                 .start(step)
+                .incrementer((jobParameters)->{
+                    if (jobParameters==null || jobParameters.isEmpty()) {
+                        return new JobParametersBuilder().addLong("run.id", 1L).toJobParameters();
+                    }
+                    long id = jobParameters.getLong("run.id",1L) + 1;
+                    return new JobParametersBuilder().addLong("run.id", id).toJobParameters();
+                })
                 .on("COMPLETED")
                 .end().build().build();
     }
