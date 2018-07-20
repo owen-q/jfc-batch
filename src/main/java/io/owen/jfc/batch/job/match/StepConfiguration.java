@@ -11,9 +11,11 @@ import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.EntityManagerFactory;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -52,7 +54,7 @@ public class StepConfiguration {
 
             Match match = new Match();
             match.setAttendList(new ArrayList<>());
-            match.setMatchDate(matchDate);
+            match.setMatchDate(matchDate.format(DateTimeFormatter.ISO_DATE));
 
             return match;
         };
